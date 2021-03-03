@@ -37,8 +37,8 @@ config = wandb.config
 
 # class custom_seg2D(Dataset):
 class KITTI(Dataset):
-#     IMAGE_PATH = os.path.join('training', 'image_2')
-#     MASK_PATH = os.path.join('training', 'semantic')
+    IMAGE_PATH = os.path.join('training', 'image_2')
+    MASK_PATH = os.path.join('training', 'semantic')
 
     def __init__(
         self,
@@ -52,7 +52,7 @@ class KITTI(Dataset):
         self.img_size = img_size
         self.void_labels = void_labels
         self.valid_labels = valid_labels
-#         self.ignore_index = 250
+        self.ignore_index = 250
         self.class_map = dict(zip(self.valid_labels, range(len(self.valid_labels))))
         self.transform = transform
 
@@ -146,12 +146,6 @@ class SegModel(pl.LightningModule):
 
 
 class KittiDataModule(pl.LightningDataModule):
-    '''
-    Kitti Data Module
-
-    It is specific to KITTI dataset i.e. dataloaders are for KITTI
-    and Normalize transform uses the mean and standard deviation of this dataset.
-    '''
 
     def __init__(self, hparams):
         super().__init__()
@@ -211,6 +205,6 @@ def main(config):
 
 
 if __name__ == '__main__':
-
+    
     print(f'Starting a run with {config}')
     main(config)
